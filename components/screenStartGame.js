@@ -1,8 +1,26 @@
 import React from 'react';
 import {View, Text, TextInput, Button, StyleSheet} from 'react-native';
+import Colors from './colors';
 
-const ScreenStart = Props => {
-  const [value, onChangeText] = React.useState('Useless Placeholder');
+const ScreenStart = props => {
+  const [valueText, setChangeText] = React.useState('Useless Placeholder');
+
+  function InputClear() {
+    console.log('clear');
+    setChangeText('');
+   }
+
+   function sendNumber() {
+    console.log('sendNumber '+valueText);
+    addPlaceHolder();
+   }
+
+   function addPlaceHolder() {
+    console.log('addPlaceHolder');
+    setChangeText('Useless Placeholder');
+   }
+
+
 
   return (
 <View style={styles.wrapper}>
@@ -17,16 +35,26 @@ const ScreenStart = Props => {
     <View style={styles.inputWrapper}>
     <TextInput
       style={styles.input}
-      onChangeText={text => onChangeText(text)}
-      value={value}
+      onFocus={()=>{InputClear();}}
+      onEndEditing={ ()=>{sendNumber()}  } 
+      onChangeText={text => setChangeText(text)}
+      keyboardType={'numeric'}
+      value={valueText}
     />
     </View>
 
     <View style={styles.btnWrapper}>
-    <Button title='Reset'  onPress={ ()=>{console.log('cancel');} }/>
-    <Button title='Confirm' onPress={ ()=>{console.log('Confirm');} }/>
+
+    <View style={styles.btnReset}>
+    <Button title='Reset'   color={Colors.btnCancel}  onPress={ ()=>{console.log('cancel');} }/>
     </View>
 
+    <View style={styles.btnAdd}>
+    <Button title='Confirm'  color={Colors.btnConfirm}   onPress={ ()=>{sendNumber()} }/>
+    </View>
+    </View>
+
+    
     </View>
 
 
@@ -36,7 +64,9 @@ const ScreenStart = Props => {
 const styles = StyleSheet.create({
   wrapper:{
     width: '100%',
+    flex: 1,
     paddingBottom: 10,
+    height: '100%',
     justifyContent: 'center',
     alignItems: 'center',
     textAlign: 'center',
@@ -83,12 +113,19 @@ const styles = StyleSheet.create({
  
   },
   btnWrapper:{
-    width: '50%',
+    width: '70%',
     flexWrap: 'wrap',
     flexDirection: 'row',
     justifyContent: 'space-between',
     alignItems: 'center',
     textAlign: 'center',
-  }
+  },
+  btnReset:{
+    width: '48%'
+  },
+    btnAdd:{
+      width: '48%'
+    }
+  
 });
 export default ScreenStart;

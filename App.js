@@ -1,10 +1,16 @@
 import React from 'react';
 import { StyleSheet, Text, View } from 'react-native';
-import Header from './components/header';
-import ScreenStart from './components/screenStartGame';
-
+import Header from './components/Header';
+import ScreenStart from './components/ScreenStartGame';
+import Card from './components/Card';
+import Colors from './components/colors';
 
 export default function App() {
+
+  const addNumber = (num) =>{
+   Console.log('adddNumber'+num);
+  }
+
   return (
     <View style={styles.container}>
 
@@ -12,9 +18,11 @@ export default function App() {
       <Header title='Guess a Number' />
     </View>
 
-    <View style={styles.screenWrapper}>
-    <ScreenStart />
-    </View>
+
+    <Card style={styles.CardSize}>
+    <ScreenStart addNumber={()=>{addNumber()}} />
+    </Card>
+
 
     </View>
   );
@@ -40,14 +48,10 @@ const styles = StyleSheet.create({
     backgroundColor: '#3c86d8',
     },
     screenWrapper:{
-      flex: 1,
-      backgroundColor:  '#fff',
-      padding: 10,
-      margin: 10,
-      alignItems: 'center',
-      textAlign: 'center',
-      borderRadius: 10,
-      borderColor: 'gray', 
-      borderWidth: 0.5,
+      width: '100%'
     },
+    CardSize:{
+      height: '50%',
+      flexDirection: 'row',
+    }
 });
