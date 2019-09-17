@@ -4,5 +4,6 @@ export default {
   background:'#f3f3f3',
   btnConfirm:'#2296f3',
   btnCancel:'red',
+  regularText: '#6c757d'
 
 }

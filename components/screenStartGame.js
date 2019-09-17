@@ -3,24 +3,31 @@ import {View, Text, TextInput, Button, StyleSheet} from 'react-native';
 import Colors from './colors';
 
 const ScreenStart = props => {
-  const [valueText, setChangeText] = React.useState('Useless Placeholder');
+  //si no quiero usar { useState }  solo lo pongo asi
+  const [enteredValue, setEnteredValue] = React.useState('');
 
   function InputClear() {
     console.log('clear');
-    setChangeText('');
+    setEnteredValue('');
    }
 
    function sendNumber() {
-    console.log('sendNumber '+valueText);
+     //validate that is number
+    console.log('sendNumber '+enteredValue);
     addPlaceHolder();
    }
 
    function addPlaceHolder() {
     console.log('addPlaceHolder');
-    setChangeText('Useless Placeholder');
+    setEnteredValue('');
    }
 
+   const inputHandler =inputText => {
+     
+//text => setEnteredValue(text)
 
+    setEnteredValue(inputText.replace(/[^0-9]/g, '' ));
+   }
 
   return (
 <View style={styles.wrapper}>
@@ -37,9 +44,11 @@ const ScreenStart = props => {
       style={styles.input}
       onFocus={()=>{InputClear();}}
       onEndEditing={ ()=>{sendNumber()}  } 
-      onChangeText={text => setChangeText(text)}
-      keyboardType={'numeric'}
-      value={valueText}
+      onChangeText={inputHandler}
+      keyboardType={'number-pad'}
+      maxLength={2}
+      autoCorrect={false}
+      value={enteredValue}
     />
     </View>
 
@@ -70,7 +79,7 @@ const styles = StyleSheet.create({
     justifyContent: 'center',
     alignItems: 'center',
     textAlign: 'center',
-    backgroundColor: '#f5f5f5'
+    backgroundColor: Colors.background
   },
   fullWith:{
     width: '100%',
@@ -81,7 +90,7 @@ const styles = StyleSheet.create({
    
   },
   screenText:{
-    color: '#6c757d',
+    color: Colors.regularText,
     fontWeight: '400',
     textTransform: 'uppercase',
     padding: 10,
@@ -95,14 +104,13 @@ const styles = StyleSheet.create({
     justifyContent: 'center',
   },
   input:{
-    width: '60%',
+    width: '20%',
     height: 40,
     borderColor: 'gray', 
     borderBottomWidth: 1,
     textAlign: 'center',
     alignContent: 'center',
     color: '#999fa3',
-
   },
   formWrapper:{
     width: '100%',
