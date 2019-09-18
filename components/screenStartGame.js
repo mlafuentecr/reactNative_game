@@ -1,74 +1,77 @@
 import React from 'react';
-import {View, Text, TextInput, Button, StyleSheet} from 'react-native';
+import {View, Text, TextInput, Button, StyleSheet, Alert} from 'react-native';
 import Colors from './colors';
 
 const ScreenStart = props => {
   //si no quiero usar { useState }  solo lo pongo asi
   const [enteredValue, setEnteredValue] = React.useState('');
+  const [confirmed, setConfirmed] = React.useState('false');
+  const [selectedNumber, setselectedNumber] = React.useState(0);
 
-  function InputClear() {
+  
+   const resetNumber = () => {
+     Alert.alert('Are your sure you want to reset', 'Click yes to reset', [{text:'Yes', style: "destructive", onPress: setselectedNumber(0) }]);
+    
+    InputClear();
+    console.log(confirmed+' resetNumber '+selectedNumber); 
+   }
+
+   function InputClear() {
     console.log('clear');
     setEnteredValue('');
    }
 
-   function sendNumber() {
-     //validate that is number
-    console.log('sendNumber '+enteredValue);
-    addPlaceHolder();
-   }
 
-   function addPlaceHolder() {
-    console.log('addPlaceHolder');
-    setEnteredValue('');
+   function sendNumber() {
+    setselectedNumber(enteredValue);
+    console.log(confirmed+' sendNumber '+selectedNumber);
+    InputClear();
    }
 
    const inputHandler =inputText => {
-     
-//text => setEnteredValue(text)
-
-    setEnteredValue(inputText.replace(/[^0-9]/g, '' ));
+     setEnteredValue(inputText.replace(/[^1-9]/g, '' ));
    }
 
   return (
-<View style={styles.wrapper}>
+  <View style={styles.wrapper}>
 
-    <Text style={styles.screenText}>
-    select a Number
-    </Text>
+        <Text style={styles.screenText}>
+        select a Number 
+        </Text>
 
+        <View style={styles.formWrapper}>
+          <View style={styles.inputWrapper}>
+          <TextInput
+            style={styles.input}
+            onFocus={()=>{InputClear();}}
+            onEndEditing={ ()=>{sendNumber()}  } 
+            onChangeText={inputHandler}
+            keyboardType={'number-pad'}
+            maxLength={2}
+            autoCorrect={false}
+            value={enteredValue}
+          />
+        </View>
 
-    <View style={styles.formWrapper}>
+        <View style={styles.btnWrapper}>
+          <View style={styles.btnReset}>
+          <Button title='Reset'   color={Colors.btnCancel}    onPress={ resetNumber}/>
+          </View>
 
-    <View style={styles.inputWrapper}>
-    <TextInput
-      style={styles.input}
-      onFocus={()=>{InputClear();}}
-      onEndEditing={ ()=>{sendNumber()}  } 
-      onChangeText={inputHandler}
-      keyboardType={'number-pad'}
-      maxLength={2}
-      autoCorrect={false}
-      value={enteredValue}
-    />
-    </View>
+          <View style={styles.btnAdd}>
+          <Button title='Confirm'  color={Colors.btnConfirm}   onPress={ ()=>{sendNumber()} }/>
+          </View>
+        </View>
 
-    <View style={styles.btnWrapper}>
-
-    <View style={styles.btnReset}>
-    <Button title='Reset'   color={Colors.btnCancel}  onPress={ ()=>{console.log('cancel');} }/>
-    </View>
-
-    <View style={styles.btnAdd}>
-    <Button title='Confirm'  color={Colors.btnConfirm}   onPress={ ()=>{sendNumber()} }/>
-    </View>
-    </View>
-
-    
-    </View>
+      </View>
 
 
-</View>
-);  
+      <View style={ selectedNumber > 0 ? styles.confirm : styles.hide  } > 
+        <Text>{`Your enter number is `+ selectedNumber}</Text>
+      </View>
+
+  </View>
+  );  
 };
 const styles = StyleSheet.create({
   wrapper:{
@@ -133,6 +136,18 @@ const styles = StyleSheet.create({
   },
     btnAdd:{
       width: '48%'
+    },
+    confirm:{
+      width: '80%',
+      flexDirection: 'row',
+      backgroundColor: Colors.backgroundDarker,
+      textAlign: 'center',
+      padding: 10,
+      margin: 10,
+      justifyContent: 'center'
+    },
+    hide:{
+      display: 'none'
     }
   
 });

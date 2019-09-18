@@ -30,7 +30,7 @@ export default function App() {
 
 const styles = StyleSheet.create({
   container: {
-    backgroundColor: '#f3f3f3',
+    backgroundColor: Colors.background,
     flexDirection: 'row',
     flexWrap: 'wrap',
     justifyContent: 'center',
@@ -45,7 +45,7 @@ const styles = StyleSheet.create({
     width: '100%',
     justifyContent: 'center',
     alignItems: 'center',
-    backgroundColor: '#3c86d8',
+    backgroundColor: Colors.primary,
     },
     screenWrapper:{
       width: '100%'
