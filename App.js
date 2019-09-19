@@ -18,11 +18,7 @@ export default function App() {
       <Header title='Guess a Number' />
     </View>
 
-
-    <Card style={styles.CardSize}>
     <ScreenStart addNumber={()=>{addNumber()}} />
-    </Card>
-
 
     </View>
   );
@@ -49,9 +45,5 @@ const styles = StyleSheet.create({
     },
     screenWrapper:{
       width: '100%'
-    },
-    CardSize:{
-      height: '50%',
-      flexDirection: 'row',
     }
 });

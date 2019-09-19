@@ -13,6 +13,7 @@ const Card = Props => {
 const styles = StyleSheet.create({
 card:{
   flex: 1,
+  flexDirection: 'row',
   backgroundColor:  '#fff',
   padding: 10,
   margin: 10,

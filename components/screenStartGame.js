@@ -1,6 +1,8 @@
 import React from 'react';
 import {View, Text, TextInput, Button, StyleSheet, Alert} from 'react-native';
 import Colors from './colors';
+import Card from './Card';
+
 
 const ScreenStart = props => {
   //si no quiero usar { useState }  solo lo pongo asi
@@ -33,8 +35,9 @@ const ScreenStart = props => {
    }
 
   return (
-  <View style={styles.wrapper}>
+  <View style={styles.fullWith}>
 
+<Card style={styles.CardSize}>
         <Text style={styles.screenText}>
         select a Number 
         </Text>
@@ -64,25 +67,25 @@ const ScreenStart = props => {
         </View>
 
       </View>
+ </Card>
 
-
+    <Card style={styles.CardSize}>
       <View style={ selectedNumber > 0 ? styles.confirm : styles.hide  } > 
-        <Text>{`Your enter number is `+ selectedNumber}</Text>
+      <Text>{`Your enter number is `+ selectedNumber}</Text>
       </View>
+    </Card>
 
   </View>
   );  
 };
 const styles = StyleSheet.create({
   wrapper:{
-    width: '100%',
     flex: 1,
-    paddingBottom: 10,
-    height: '100%',
+    flexDirection: 'row',
+    width: '100%',
     justifyContent: 'center',
     alignItems: 'center',
     textAlign: 'center',
-    backgroundColor: Colors.background
   },
   fullWith:{
     width: '100%',
@@ -148,6 +151,14 @@ const styles = StyleSheet.create({
     },
     hide:{
       display: 'none'
+    },
+    CardSize:{
+      maxHeight: '40%',
+      width: '100%',
+      flexDirection: 'row',
+      flexWrap: 'wrap',
+      justifyContent: 'center',
+      textAlign: 'center',
     }
   
 });
