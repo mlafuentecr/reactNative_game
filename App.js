@@ -1,8 +1,7 @@
 import React from 'react';
 import { StyleSheet, Text, View } from 'react-native';
-import Header from './components/Header';
-import ScreenStart from './components/ScreenStartGame';
-import Card from './components/Card';
+import Header from './components/header';
+import ScreenStart from './components/screenStartGame';
 import Colors from './components/colors';
 
 export default function App() {

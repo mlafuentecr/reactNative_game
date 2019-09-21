@@ -1,76 +1,91 @@
 import React from 'react';
-import {View, Text, TextInput, Button, StyleSheet, Alert} from 'react-native';
+import {View, Text, TextInput, Button, StyleSheet, Alert, Keyboard} from 'react-native';
 import Colors from './colors';
-import Card from './Card';
+import Card from './card';
 
 
 const ScreenStart = props => {
   //si no quiero usar { useState }  solo lo pongo asi
   const [enteredValue, setEnteredValue] = React.useState('');
-  const [confirmed, setConfirmed] = React.useState('false');
   const [selectedNumber, setselectedNumber] = React.useState(0);
 
   
    const resetNumber = () => {
-     Alert.alert('Are your sure you want to reset', 'Click yes to reset', [{text:'Yes', style: "destructive", onPress: setselectedNumber(0) }]);
+     Alert.alert('Are your sure you want to reset', 'Click yes to reset', [{text:'Yes', style: "destructive", onPress: InputClear() }]);
     
     InputClear();
-    console.log(confirmed+' resetNumber '+selectedNumber); 
-   }
-
-   function InputClear() {
-    console.log('clear');
-    setEnteredValue('');
+    console.log(' resetNumber '+selectedNumber); 
+    setselectedNumber('');
    }
 
 
    function sendNumber() {
     setselectedNumber(enteredValue);
-    console.log(confirmed+' sendNumber '+selectedNumber);
+    console.log(' sendNumber '+enteredValue);
     InputClear();
    }
 
+   
+   function InputClear() {
+    setEnteredValue('');
+    console.log('clear2 '+selectedNumber);
+
+   }
+
    const inputHandler =inputText => {
-     setEnteredValue(inputText.replace(/[^1-9]/g, '' ));
+    setEnteredValue(inputText.replace(/[^1-9]/g, '' ));
    }
 
   return (
   <View style={styles.fullWith}>
 
 <Card style={styles.CardSize}>
+
+
+
+
+        <View style={styles.formWrapper}>
+
         <Text style={styles.screenText}>
         select a Number 
         </Text>
 
-        <View style={styles.formWrapper}>
+
           <View style={styles.inputWrapper}>
+
           <TextInput
             style={styles.input}
             onFocus={()=>{InputClear();}}
-            onEndEditing={ ()=>{sendNumber()}  } 
+            onEndEditing={ ()=>{ sendNumber() }  } 
             onChangeText={inputHandler}
             keyboardType={'number-pad'}
             maxLength={2}
             autoCorrect={false}
             value={enteredValue}
           />
+          
         </View>
 
         <View style={styles.btnWrapper}>
-          <View style={styles.btnReset}>
-          <Button title='Reset'   color={Colors.btnCancel}    onPress={ resetNumber}/>
-          </View>
-
-          <View style={styles.btnAdd}>
-          <Button title='Confirm'  color={Colors.btnConfirm}   onPress={ ()=>{sendNumber()} }/>
-          </View>
+        <View style={styles.btnReset}>
+        <Button title='Reset'   color={Colors.btnCancel}    onPress={ resetNumber}/>
         </View>
 
-      </View>
+        <View style={styles.btnAdd}>
+        <Button title='Confirm'  color={Colors.btnConfirm}   onPress={ ()=>{    Keyboard.dismiss() } }/>
+        </View>
+        </View>
+
+        </View>
+
+
+
+
+
  </Card>
 
-    <Card style={styles.CardSize}>
-      <View style={ selectedNumber > 0 ? styles.confirm : styles.hide  } > 
+    <Card style={selectedNumber > 0 ? styles.CardSize2 : styles.hide  }>
+      <View style={ selectedNumber > 0 ? styles.confirm : '' } > 
       <Text>{`Your enter number is `+ selectedNumber}</Text>
       </View>
     </Card>
@@ -79,6 +94,11 @@ const ScreenStart = props => {
   );  
 };
 const styles = StyleSheet.create({
+  lineStyle:{
+    borderWidth: 0.5,
+    borderColor:'black',
+    width: '100%'
+},
   wrapper:{
     flex: 1,
     flexDirection: 'row',
@@ -122,6 +142,7 @@ const styles = StyleSheet.create({
     width: '100%',
     flexWrap: 'wrap',
     flexDirection: 'row',
+    flex: 1,
     justifyContent: 'center',
     alignItems: 'center',
  
@@ -159,6 +180,18 @@ const styles = StyleSheet.create({
       flexWrap: 'wrap',
       justifyContent: 'center',
       textAlign: 'center',
+      alignItems: 'center',
+      flex: 1,
+    },
+    CardSize2:{
+      maxHeight: '20%',
+      width: '100%',
+      flexDirection: 'row',
+      flexWrap: 'wrap',
+      justifyContent: 'center',
+      textAlign: 'center',
+      alignItems: 'center',
+      flex: 1,
     }
   
 });
