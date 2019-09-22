@@ -8,7 +8,7 @@ const ScreenStart = props => {
   //si no quiero usar { useState }  solo lo pongo asi
   const [enteredValue, setEnteredValue] = React.useState('');
   const [selectedNumber, setselectedNumber] = React.useState(0);
-
+ const [currentGuest, setcurrentGuest] = React.useState(generatorRandom(1, 100, ));
   
    const resetNumber = () => {
      Alert.alert('Are your sure you want to reset', 'Click yes to reset', [{text:'Yes', style: "destructive", onPress: InputClear() }]);
@@ -34,6 +34,23 @@ const ScreenStart = props => {
 
    const inputHandler =inputText => {
     setEnteredValue(inputText.replace(/[^1-9]/g, '' ));
+   }
+
+   const generatorRandom = (min , max , exclude) => {
+
+     min = Math.ceil(min);
+     max = Math.floor(max);
+     const rndNum = Math.floor.(Math.random() * (max-min)) + min;
+     
+     if(rndNum === exclude){
+      return  generatorRandom(min , max , exclude);
+     } else{
+       return rndNum:
+     }
+   }
+
+   const startGame = () => {
+     console.log('game start');
    }
 
   return (
@@ -85,28 +102,18 @@ const ScreenStart = props => {
  </Card>
 
     <Card style={selectedNumber > 0 ? styles.CardSize2 : styles.hide  }>
-      <View style={ selectedNumber > 0 ? styles.confirm : '' } > 
-      <Text>{`Your enter number is `+ selectedNumber}</Text>
+      <View style={styles.fullWith}> 
+      <Text>{ `Your enter number is ` }</Text>
+      <Text style={ selectedNumber > 0 ? styles.confirm : '' } >{ selectedNumber}</Text>
       </View>
+       <Button title='start a Game'  color={Colors.btnConfirm}   onPress={ startGame }/>
     </Card>
 
   </View>
   );  
 };
 const styles = StyleSheet.create({
-  lineStyle:{
-    borderWidth: 0.5,
-    borderColor:'black',
-    width: '100%'
-},
-  wrapper:{
-    flex: 1,
-    flexDirection: 'row',
-    width: '100%',
-    justifyContent: 'center',
-    alignItems: 'center',
-    textAlign: 'center',
-  },
+
   fullWith:{
     width: '100%',
     justifyContent: 'center',
@@ -167,7 +174,7 @@ const styles = StyleSheet.create({
       backgroundColor: Colors.backgroundDarker,
       textAlign: 'center',
       padding: 10,
-      margin: 10,
+      margin: 5,
       justifyContent: 'center'
     },
     hide:{
@@ -184,7 +191,7 @@ const styles = StyleSheet.create({
       flex: 1,
     },
     CardSize2:{
-      maxHeight: '20%',
+      maxHeight: '30%',
       width: '100%',
       flexDirection: 'row',
       flexWrap: 'wrap',
