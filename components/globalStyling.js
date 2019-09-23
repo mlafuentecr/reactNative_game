@@ -5,5 +5,8 @@ export default {
   backgroundDarker:'#cdcdcd',
   btnConfirm:'#2296f3',
   btnCancel:'red',
-  regularText: '#6c757d'
-}
+  regularText: '#6c757d',
+  hide:{
+    display: 'none'
+  },
+} 

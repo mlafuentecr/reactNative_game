@@ -2,7 +2,7 @@ import React from 'react';
 import { StyleSheet, Text, View } from 'react-native';
 import Header from './components/header';
 import ScreenStart from './components/screenStartGame';
-import Colors from './components/colors';
+import globalStyling from './components/globalStyling';
 
 export default function App() {
 
@@ -25,7 +25,7 @@ export default function App() {
 
 const styles = StyleSheet.create({
   container: {
-    backgroundColor: Colors.background,
+    backgroundColor: globalStyling.background,
     flexDirection: 'row',
     flexWrap: 'wrap',
     justifyContent: 'center',
@@ -40,7 +40,7 @@ const styles = StyleSheet.create({
     width: '100%',
     justifyContent: 'center',
     alignItems: 'center',
-    backgroundColor: Colors.primary,
+    backgroundColor: globalStyling.primary,
     },
     screenWrapper:{
       width: '100%'

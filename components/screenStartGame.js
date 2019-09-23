@@ -1,14 +1,27 @@
 import React from 'react';
 import {View, Text, TextInput, Button, StyleSheet, Alert, Keyboard} from 'react-native';
-import Colors from './colors';
+import globalStyling from './globalStyling';
+import NumberContainer from './numberContainer';
 import Card from './card';
 
+const generatorRandom = (min , max , exclude) => {
+
+  min = Math.ceil(min);
+  max = Math.floor(max);
+  const rndNum = Math.floor(Math.random() * (max-min)) + min;
+  
+  if(rndNum === exclude){
+   return  generatorRandom(min , max , exclude);
+  } else{
+    return rndNum;
+  }
+}
 
 const ScreenStart = props => {
   //si no quiero usar { useState }  solo lo pongo asi
   const [enteredValue, setEnteredValue] = React.useState('');
   const [selectedNumber, setselectedNumber] = React.useState(0);
- const [currentGuest, setcurrentGuest] = React.useState(generatorRandom(1, 100, ));
+  const [currentGuest, setcurrentGuest] = React.useState(generatorRandom(1, 100, ));
   
    const resetNumber = () => {
      Alert.alert('Are your sure you want to reset', 'Click yes to reset', [{text:'Yes', style: "destructive", onPress: InputClear() }]);
@@ -36,18 +49,6 @@ const ScreenStart = props => {
     setEnteredValue(inputText.replace(/[^1-9]/g, '' ));
    }
 
-   const generatorRandom = (min , max , exclude) => {
-
-     min = Math.ceil(min);
-     max = Math.floor(max);
-     const rndNum = Math.floor.(Math.random() * (max-min)) + min;
-     
-     if(rndNum === exclude){
-      return  generatorRandom(min , max , exclude);
-     } else{
-       return rndNum:
-     }
-   }
 
    const startGame = () => {
      console.log('game start');
@@ -57,9 +58,6 @@ const ScreenStart = props => {
   <View style={styles.fullWith}>
 
 <Card style={styles.CardSize}>
-
-
-
 
         <View style={styles.formWrapper}>
 
@@ -85,29 +83,19 @@ const ScreenStart = props => {
 
         <View style={styles.btnWrapper}>
         <View style={styles.btnReset}>
-        <Button title='Reset'   color={Colors.btnCancel}    onPress={ resetNumber}/>
+        <Button title='Reset'   color={globalStyling.btnCancel}    onPress={ resetNumber}/>
         </View>
 
         <View style={styles.btnAdd}>
-        <Button title='Confirm'  color={Colors.btnConfirm}   onPress={ ()=>{    Keyboard.dismiss() } }/>
+        <Button title='Confirm'  color={globalStyling.btnConfirm}   onPress={ ()=>{    Keyboard.dismiss() } }/>
         </View>
         </View>
 
         </View>
-
-
-
-
 
  </Card>
 
-    <Card style={selectedNumber > 0 ? styles.CardSize2 : styles.hide  }>
-      <View style={styles.fullWith}> 
-      <Text>{ `Your enter number is ` }</Text>
-      <Text style={ selectedNumber > 0 ? styles.confirm : '' } >{ selectedNumber}</Text>
-      </View>
-       <Button title='start a Game'  color={Colors.btnConfirm}   onPress={ startGame }/>
-    </Card>
+    <NumberContainer startGame={startGame} />
 
   </View>
   );  
@@ -123,7 +111,7 @@ const styles = StyleSheet.create({
    
   },
   screenText:{
-    color: Colors.regularText,
+    color: globalStyling.regularText,
     fontWeight: '400',
     textTransform: 'uppercase',
     padding: 10,
@@ -171,14 +159,11 @@ const styles = StyleSheet.create({
     confirm:{
       width: '80%',
       flexDirection: 'row',
-      backgroundColor: Colors.backgroundDarker,
+      backgroundColor: globalStyling.backgroundDarker,
       textAlign: 'center',
       padding: 10,
       margin: 5,
       justifyContent: 'center'
-    },
-    hide:{
-      display: 'none'
     },
     CardSize:{
       maxHeight: '40%',
@@ -190,16 +175,7 @@ const styles = StyleSheet.create({
       alignItems: 'center',
       flex: 1,
     },
-    CardSize2:{
-      maxHeight: '30%',
-      width: '100%',
-      flexDirection: 'row',
-      flexWrap: 'wrap',
-      justifyContent: 'center',
-      textAlign: 'center',
-      alignItems: 'center',
-      flex: 1,
-    }
+
   
 });
 export default ScreenStart;
