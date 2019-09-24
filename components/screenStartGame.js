@@ -4,24 +4,13 @@ import globalStyling from './globalStyling';
 import NumberContainer from './numberContainer';
 import Card from './card';
 
-const generatorRandom = (min , max , exclude) => {
 
-  min = Math.ceil(min);
-  max = Math.floor(max);
-  const rndNum = Math.floor(Math.random() * (max-min)) + min;
-  
-  if(rndNum === exclude){
-   return  generatorRandom(min , max , exclude);
-  } else{
-    return rndNum;
-  }
-}
 
 const ScreenStart = props => {
   //si no quiero usar { useState }  solo lo pongo asi
   const [enteredValue, setEnteredValue] = React.useState('');
   const [selectedNumber, setselectedNumber] = React.useState(0);
-  const [currentGuest, setcurrentGuest] = React.useState(generatorRandom(1, 100, ));
+ 
   
    const resetNumber = () => {
      Alert.alert('Are your sure you want to reset', 'Click yes to reset', [{text:'Yes', style: "destructive", onPress: InputClear() }]);
@@ -50,12 +39,9 @@ const ScreenStart = props => {
    }
 
 
-   const startGame = () => {
-     console.log('game start');
-   }
 
   return (
-  <View style={styles.fullWith}>
+  <View style={globalStyling.fullWith}>
 
 <Card style={styles.CardSize}>
 
@@ -82,34 +68,33 @@ const ScreenStart = props => {
         </View>
 
         <View style={styles.btnWrapper}>
-        <View style={styles.btnReset}>
-        <Button title='Reset'   color={globalStyling.btnCancel}    onPress={ resetNumber}/>
-        </View>
+          <View style={styles.btnReset}>
+          <Button title='Reset'   color={globalStyling.btnCancel}    onPress={ resetNumber}/>
+          </View>
 
-        <View style={styles.btnAdd}>
-        <Button title='Confirm'  color={globalStyling.btnConfirm}   onPress={ ()=>{    Keyboard.dismiss() } }/>
-        </View>
+          <View style={styles.btnAdd}>
+          <Button title='Confirm'  color={globalStyling.btnConfirm}   onPress={ ()=>{    Keyboard.dismiss() } }/>
+          </View>
         </View>
 
         </View>
 
  </Card>
 
-    <NumberContainer startGame={startGame} />
+ <Card style={selectedNumber > 0 ? styles.CardSize2 : globalStyling.hide  }>
+    <View style={globalStyling.fullWith}> 
+    <Text>{ `Your enter number is ` }</Text>
+    <NumberContainer >{selectedNumber} </NumberContainer>
+    <Button title='start a Game'  color={globalStyling.btnConfirm}   onPress={ () => {props.startGameHandle(selectedNumber)} }/>
+    </View>
+  </Card>
 
   </View>
   );  
 };
 const styles = StyleSheet.create({
 
-  fullWith:{
-    width: '100%',
-    justifyContent: 'center',
-    alignItems: 'center',
-    textAlign: 'center',
-    padding: 10,
-   
-  },
+
   screenText:{
     color: globalStyling.regularText,
     fontWeight: '400',
@@ -156,15 +141,7 @@ const styles = StyleSheet.create({
     btnAdd:{
       width: '48%'
     },
-    confirm:{
-      width: '80%',
-      flexDirection: 'row',
-      backgroundColor: globalStyling.backgroundDarker,
-      textAlign: 'center',
-      padding: 10,
-      margin: 5,
-      justifyContent: 'center'
-    },
+  
     CardSize:{
       maxHeight: '40%',
       width: '100%',
@@ -175,7 +152,27 @@ const styles = StyleSheet.create({
       alignItems: 'center',
       flex: 1,
     },
-
+    CardSize2:{
+      maxHeight: '45%',
+      width: '100%',
+      flexDirection: 'row',
+      flexWrap: 'wrap',
+      justifyContent: 'center',
+      textAlign: 'center',
+      alignItems: 'center',
+      flex: 1,
+    },
+    number:{
+      width: '40%',
+      flexDirection: 'row',
+      textAlign: 'center',
+      padding: 10,
+      margin: 5,
+      justifyContent: 'center',
+      borderWidth: 2,
+      borderColor: 'purple',
+      fontSize: 40,
+    },
   
 });
 export default ScreenStart;

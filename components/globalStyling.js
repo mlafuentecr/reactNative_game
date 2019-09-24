@@ -9,4 +9,13 @@ export default {
   hide:{
     display: 'none'
   },
+  fullWith:{
+    width: '100%',
+    justifyContent: 'center',
+    alignItems: 'center',
+    textAlign: 'center',
+    padding: 10,
+    backgroundColor: 'red'
+   
+  },
 } 

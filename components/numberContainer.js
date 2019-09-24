@@ -1,31 +1,35 @@
 import React from 'React';
-import {View, Text, StyleSheet} from 'react-native';
+import {View, Text, StyleSheet, Button} from 'react-native';
 import Card from './card';
 import globalStyling from './globalStyling';
 
-const numberContainer = Props => {
-    return(
-    <View>
-       <Card style={selectedNumber > 0 ? styles.CardSize2 : globalStyling.hide  }>
-      <View style={styles.fullWith}> 
-      <Text>{ `Your enter number is ` }</Text>
-      <Text style={ selectedNumber > 0 ? styles.confirm : '' } >{ selectedNumber}</Text>
-      </View>
-       <Button title='start a Game'  color={globalStyling.btnConfirm}   onPress={ Props.startGame }/>
-    </Card>
+const numberContainer = props => {
+  return (
+    <View style={styles.container}>
+      <Text style={styles.number}>{props.children}</Text>
     </View>
-    );  
+  );
 }
 const styles = StyleSheet.create ({
-    CardSize2:{
-        maxHeight: '30%',
-        width: '100%',
+
+  number:{
+        width: '50%',
         flexDirection: 'row',
-        flexWrap: 'wrap',
-        justifyContent: 'center',
         textAlign: 'center',
+        padding: 10,
+        margin: 5,
+        justifyContent: 'center',
+        borderWidth: 2,
+        borderColor: 'purple',
+        fontSize: 40,
+      },
+      fullWith:{
+        width: '100%',
+        justifyContent: 'center',
         alignItems: 'center',
-        flex: 1,
-      }
+        textAlign: 'center',
+        padding: 10,
+        marginBottom: 20
+      },
 });
 export default numberContainer;
