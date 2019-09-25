@@ -13,29 +13,38 @@ const ScreenStart = props => {
  
   
    const resetNumber = () => {
-     Alert.alert('Are your sure you want to reset', 'Click yes to reset', [{text:'Yes', style: "destructive", onPress: InputClear() }]);
-    
-    InputClear();
-    console.log(' resetNumber '+selectedNumber); 
-    setselectedNumber('');
+     Alert.alert('Are your sure you want to reset', 'Click yes to reset', [{text:'Yes', style: "destructive", onPress: restart }]);
+   }
+   const restart =()=>{
+    props.restart;
+    setselectedNumber(null);
    }
 
-
    function sendNumber() {
-    setselectedNumber(enteredValue);
-    console.log(' sendNumber '+enteredValue);
+    
+    setselectedNumber(Number(enteredValue));
+    console.log(' sendNumber '+ typeof enteredValue);
     InputClear();
    }
 
    
    function InputClear() {
-    setEnteredValue('');
+    setEnteredValue(null);
     console.log('clear2 '+selectedNumber);
 
    }
 
-   const inputHandler =inputText => {
-    setEnteredValue(inputText.replace(/[^1-9]/g, '' ));
+   const inputHandler = inputText => {
+     const chosenNumber = parseInt(inputText);
+
+     console.log('inputHandler '+ typeof chosenNumber);
+
+     if(chosenNumber === NaN || chosenNumber <= 0 || chosenNumber > 99){
+      Alert.alert('Not allow', 'Click continue', [{text:'Continue', style: "destructive" }]);
+     }else{
+      setEnteredValue(inputText);
+     }
+    
    }
 
 

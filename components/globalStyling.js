@@ -15,7 +15,6 @@ export default {
     alignItems: 'center',
     textAlign: 'center',
     padding: 10,
-    backgroundColor: 'red'
    
   },
 } 

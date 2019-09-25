@@ -1,7 +1,6 @@
 import React from 'React';
 import {View, Text, StyleSheet, Button} from 'react-native';
-import Card from './card';
-import globalStyling from './globalStyling';
+
 
 const numberContainer = props => {
   return (
@@ -22,6 +21,11 @@ const styles = StyleSheet.create ({
         borderWidth: 2,
         borderColor: 'purple',
         fontSize: 40,
+        borderBottomLeftRadius: 10,
+        borderBottomRightRadius: 10,
+        borderTopLeftRadius: 10,
+        borderTopRightRadius: 10,
+        borderRadius:10,
       },
       fullWith:{
         width: '100%',
