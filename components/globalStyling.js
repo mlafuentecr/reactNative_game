@@ -11,10 +11,13 @@ export default {
   },
   fullWith:{
     width: '100%',
+    flexDirection: 'row',
+    justifyContent: 'center',
+    textAlign: 'center',
     justifyContent: 'center',
     alignItems: 'center',
     textAlign: 'center',
     padding: 10,
-   
+    flexWrap: 'wrap',
   },
 } 

@@ -25,7 +25,7 @@ const startGameHandle = (userNumberVar) =>{
 }
 
 
-let content =  <ScreenStart startGameHandle={startGameHandle}  restart={restart}/>;
+let content =  <GameOver roundNumber={guessRounds} userNumber={userNumber} restart={restart}/>; //<ScreenStart startGameHandle={startGameHandle}  restart={restart}/>;
 
 if(userNumber && guessRounds <= 0 ){
   content = <GameScreen userChoise={userNumber} onGameOver={gameOverHandler} />;
@@ -57,7 +57,8 @@ const styles = StyleSheet.create({
     flex: 1,
     margin: 10,
     marginTop: 50,
-  },
+
+   },
   headerWrapper: {
     height: '10%',
     width: '100%',
