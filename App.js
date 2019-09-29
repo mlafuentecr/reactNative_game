@@ -6,6 +6,7 @@ import globalStyling from './components/globalStyling';
 import GameScreen from './components/gameScreen';
 import GameOver from './components/gameOver';
 
+
 export default function App() {
 const [userNumber, setUserNumber] = useState();
 const [guessRounds, setGuessRound] = useState(0);
@@ -25,7 +26,7 @@ const startGameHandle = (userNumberVar) =>{
 }
 
 
-let content =  <GameOver roundNumber={guessRounds} userNumber={userNumber} restart={restart}/>; //<ScreenStart startGameHandle={startGameHandle}  restart={restart}/>;
+let content =  <ScreenStart startGameHandle={startGameHandle}  restart={restart}/>;
 
 if(userNumber && guessRounds <= 0 ){
   content = <GameScreen userChoise={userNumber} onGameOver={gameOverHandler} />;

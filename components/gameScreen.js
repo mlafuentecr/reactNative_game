@@ -3,6 +3,8 @@ import {View, Text, StyleSheet, Button, Alert} from 'react-native';
 import Card from './card';
 import NumberContainer from './numberContainer';
 import globalStyling from './globalStyling';
+import { Ionicons } from '@expo/vector-icons';
+import CustomButton from './CustomButton';
 
 const generatorRandom = (min , max , exclude) => {
 
@@ -65,8 +67,15 @@ const nexGuestHandler = direction =>{
         <NumberContainer  style={styles.numberContainer}>{currentGuest} </NumberContainer>
        
         <View style={styles.btnWrapper}>
-        <Button title='Lower'    onPress={ () => { nexGuestHandler('lower') } }/>
-        <Button title='Greater'  onPress={ () => { nexGuestHandler('greater') } }/>
+        <CustomButton onPress={ () => { nexGuestHandler('lower') } } > 
+        Lower
+        <ion-icon name="remove-circle"></ion-icon>
+         </CustomButton>
+         <CustomButton onPress={ () => { nexGuestHandler('Greater') } } > 
+         Greater
+        <ion-icon name="add-circle"></ion-icon>
+         </CustomButton>
+
         </View>
         
        
@@ -106,7 +115,6 @@ const styles = StyleSheet.create ({
         justifyContent: 'center',
         textAlign: 'center',
         alignItems: 'center',
-        flex: 1,
       },
 });
 export default GameScreen;
