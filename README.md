@@ -1,5 +1,5 @@
 # reactNative_game
-<img src="https://github.com/mlafuentecr/images/blob/master/phone.jpg.jpg?raw=tru" width="350" title="hover text">
+<img src="https://github.com/mlafuentecr/images/blob/master/phone.jpg?raw=true" width="350" >
 
 #basePass.js
 ```html
