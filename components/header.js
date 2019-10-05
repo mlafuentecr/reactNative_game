@@ -7,11 +7,9 @@ return (
     <Text style={styles.headerTitle}>
       {Props.title} 
     </Text>
-
 );  
 }
 const styles = StyleSheet.create({
-  
   headerTitle: {
     width: '100%',
     textTransform: 'uppercase',
@@ -20,6 +18,5 @@ const styles = StyleSheet.create({
     alignItems: 'center',
     textAlign: 'center',
   }
-
 });
 export default Header;

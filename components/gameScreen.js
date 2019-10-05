@@ -6,55 +6,64 @@ import globalStyling from './globalStyling';
 import { Ionicons } from '@expo/vector-icons';
 import CustomButton from './CustomButton';
 
+const number =0;
 const generatorRandom = (min , max , exclude) => {
 
     min = Math.ceil(min);
     max = Math.floor(max);
     const rndNum = Math.floor(Math.random() * (max-min)) + min;
-    
+    console.log(rndNum+'check '+exclude);
+
+
     if(rndNum === exclude){
+      console.log('number '+number+1);
+      number+1
      return  generatorRandom(min , max , exclude);
     } else{
+      console.log('rndNum '+number+1);
       return rndNum;
     }
   }
 
 
-const GameScreen = props  => {
-const [currentGuest, setcurrentGuest] = React.useState(generatorRandom(1, 100, props.userChoise));
-const [rounds, setRounds] = React.useState(0);
-const {userChoise, onGameOver} = props;
+  const GameScreen = props  => {
+  const [currentGuest, setcurrentGuest] = React.useState(generatorRandom(1, 100, props.userChoise));
+  const [rounds, setRounds] = React.useState(0);
+  const {userChoise, onGameOver} = props;
 
-//after is render this funcion its call
-useEffect(() => {
-  if(currentGuest === Number(props.userChoise)){
-    props.onGameOver(rounds);
-  }
-}, [currentGuest, userChoise, onGameOver ]);
+  //after is render this funcion its call
+  useEffect(() => {
+    if(currentGuest === Number(props.userChoise)){
+      props.onGameOver(rounds);
+    }
+  }, [currentGuest, userChoise, onGameOver ]);
 
-const currentLow = useRef(1);
-const currentHigh = useRef(100);
+  const currentLow = useRef(1);
+  const currentHigh = useRef(100);
 
 const nexGuestHandler = direction =>{
-  console.log(props.userChoise +' <number  currentGuest> ' + currentGuest+ ' currentLow>'+currentLow.current +'currentHigh'+currentHigh.current);
 
-  if((direction === 'lower' && currentGuest < props.userChoise) ||
-    (direction === 'greater' && currentGuest > props.userChoise)
-    ){
-      console.log('wrong number');
-      Alert.alert('Don\'t ', 'the number is wrong', [{text:'Sorry!', style: "cancel" }]);
-    return;
-  }
+      console.log(props.userChoise +' <number nexGuestHandler  currentGuest> ' + currentGuest+ 
+      ' currentLow>'+currentLow.current +'currentHigh'+currentHigh.current);
 
-  if(direction === 'lower'){
-    currentHigh.current = currentGuest;
-  }else{
-    currentLow.current = currentGuest;
-  }
+      if((direction === 'lower' && currentGuest < props.userChoise) ||
+        (direction === 'greater' && currentGuest > props.userChoise)
+        ){
+          console.log('wrong number');
+          Alert.alert('Don\'t ', 'the number is wrong', [{text:'Sorry!', style: "cancel" }]);
+        return;
+      }
 
-  const nextNumber = generatorRandom( currentLow.current, currentHigh.current, currentGuest );
-  setcurrentGuest(nextNumber);
-  setRounds(curRounds => curRounds+1);
+      if(direction === 'lower'){
+        currentHigh.current = currentGuest;
+      }else{
+        currentLow.current = currentGuest;
+      }
+
+      const nextNumber = generatorRandom( currentLow.current, currentHigh.current, currentGuest );
+      setcurrentGuest(nextNumber);
+      setRounds(curRounds => curRounds+1);
+      return;
 }
     return(
     <View style={globalStyling.fullWith}>
@@ -64,18 +73,17 @@ const nexGuestHandler = direction =>{
 
         <View style={globalStyling.fullWith}> 
         <Text> Opponent's Guess</Text>
+
         <NumberContainer  style={styles.numberContainer}>{currentGuest} </NumberContainer>
        
         <View style={styles.btnWrapper}>
-        <CustomButton onPress={ () => { nexGuestHandler('lower') } } > 
-        Lower
-        <ion-icon name="remove-circle"></ion-icon>
-         </CustomButton>
-         <CustomButton onPress={ () => { nexGuestHandler('Greater') } } > 
-         Greater
-        <ion-icon name="add-circle"></ion-icon>
-         </CustomButton>
+          <CustomButton click={ () => { nexGuestHandler('lower')} } > 
+          <Ionicons  name="ios-remove-circle" size={32}/>
+          </CustomButton>
 
+          <CustomButton click={ () => { nexGuestHandler('Greater') } } > 
+          <Ionicons  name="ios-add-circle" size={32}/>
+          </CustomButton>
         </View>
         
        
@@ -89,7 +97,7 @@ const nexGuestHandler = direction =>{
 const styles = StyleSheet.create ({
     numberContainer:{ 
     flexWrap: 'wrap',
-    flexDirection: 'row',
+    flexDirection: 'row', 
     flex: 1,
     justifyContent: 'center',
     alignItems: 'center',

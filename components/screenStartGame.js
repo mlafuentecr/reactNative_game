@@ -6,7 +6,7 @@ import Card from './card';
 
 
 
-const ScreenStart = props => {
+const ScreenStartGame = props => {
   //si no quiero usar { useState }  solo lo pongo asi
   const [enteredValue, setEnteredValue] = React.useState('');
   const [selectedNumber, setselectedNumber] = React.useState(0);
@@ -89,12 +89,17 @@ const ScreenStart = props => {
         </View>
 
  </Card>
-
+ 
  <Card style={selectedNumber > 0 ? styles.CardSize2 : globalStyling.hide  }>
     <View style={globalStyling.fullWith}> 
     <Text>{ `Your enter number is ` }</Text>
     <NumberContainer >{selectedNumber} </NumberContainer>
-    <Button title='start a Game'  color={globalStyling.btnConfirm}   onPress={ () => {props.startGameHandle(selectedNumber)} }/>
+    <Button 
+    title='start a Game'
+    color={globalStyling.btnConfirm} 
+    onPress={ () => {props.startGameClick(selectedNumber)} }
+    />
+
     </View>
   </Card>
 
@@ -117,6 +122,7 @@ const styles = StyleSheet.create({
     textAlign: 'center',
     alignContent: 'center',
     justifyContent: 'center',
+    
   },
   input:{
     width: '20%',
@@ -184,4 +190,4 @@ const styles = StyleSheet.create({
     },
   
 });
-export default ScreenStart;
+export default ScreenStartGame;

@@ -1,38 +1,39 @@
 import React, {useState} from 'react';
 import {  StyleSheet, Text, View } from 'react-native';
 import Header from './components/header';
-import ScreenStart from './components/screenStartGame';
+import ScreenStartGame from './components/screenStartGame';
 import globalStyling from './components/globalStyling';
 import GameScreen from './components/gameScreen';
 import GameOver from './components/gameOver';
 
 
 export default function App() {
-const [userNumber, setUserNumber] = useState();
-const [guessRounds, setGuessRound] = useState(0);
+      
+    const [userNumber, setUserNumber] = useState();
+    const [guessRounds, setGuessRound] = useState(0);
 
-const restart= () =>{
-  console.log('restart');
-  setGuessRound(null);
-  setUserNumber(null);
-}
+    const restart= () =>{
+      console.log('restart');
+      setGuessRound(null);
+      setUserNumber(null);
+    }
 
-const gameOverHandler = numOfRound =>{
-  setGuessRound(numOfRound);
-}
-const startGameHandle = (userNumberVar) =>{
-  console.log('adddNumber'+userNumberVar);
-  setUserNumber(userNumberVar);
-}
+    const gameOverHandler = numOfRound =>{
+      setGuessRound(numOfRound);
+    }
+    const startGameHandle = (userNumberVar) =>{
+      console.log('xadddNumber '+userNumberVar);
+      setUserNumber(userNumberVar);
+    }
 
 
-let content =  <ScreenStart startGameHandle={startGameHandle}  restart={restart}/>;
+    let content =  <ScreenStartGame startGameClick={startGameHandle}  restart={restart}/>;
 
-if(userNumber && guessRounds <= 0 ){
-  content = <GameScreen userChoise={userNumber} onGameOver={gameOverHandler} />;
-}else if(guessRounds > 0){
-  content = <GameOver roundNumber={guessRounds} userNumber={userNumber} restart={restart}/>;
-}
+    if(userNumber && guessRounds <= 0 ){
+      content = <GameScreen userChoise={userNumber} onGameOver={gameOverHandler} />;
+    }else if(guessRounds > 0){
+      content = <GameOver roundNumber={guessRounds} userNumber={userNumber} restart={restart}/>;
+    }
 
   return (
     <View style={styles.container}>

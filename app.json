@@ -25,6 +25,11 @@
     ],
     "ios": {
       "supportsTablet": true
-    }
+    },
+    "android": {
+      "package": "com.mariolafuente.expo_game"
+    },
+    "description": "testin apk",
+    "githubUrl": "https://github.com/mlafuentecr/reactNative_game.git"
   }
 }
